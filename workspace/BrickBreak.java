@@ -1,11 +1,3 @@
-/*
- * Author: Mr. M
- * Date: 12/02/24
- * Description: This is the driver program for the BrickBreak game featuring a classic arcade feel.
- * This project requires the Ball.java, Paddle.java and Brick.java files to operate. Although Brick 
- * is complete the other two are still in production. 
- */
-
 import java.awt.Color;
 
 import java.awt.Font;
@@ -128,12 +120,13 @@ public class BrickBreak extends JPanel implements KeyListener, ActionListener {
 		// paddle collision
 		if (ballHitBox.intersects(playerHitBox)) {
 			ball.reverseY();
-			if (player.getVelocity() > 0) {
+			if (player.getX()%3 == 0) {
 				ball.setXVelocity(1);
 			}
-			if (player.getVelocity() < 0) {
+			else {
 				ball.setXVelocity(-1);
 			}
+			System.out.println(ball.getXVelocity() + " " + ball.getYVelocity() + " " + player.getVelocity() + " " + player.getX());
 		}
 
 		// brick collision
@@ -204,22 +197,39 @@ public class BrickBreak extends JPanel implements KeyListener, ActionListener {
 	//postondition: paddle moves according to keys pressed (left/right). If the user presses enter the game is restarted.
 	@Override
 	public void keyPressed(KeyEvent e) {
+		// if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		// 	play = true;
+		// 	player.setX(player.getX() +20);
+				
+
+		// } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		// 	play = true;
+		// 	player.setX(player.getX() -20);
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			play = true;
+			
 			if (player.getVelocity() == 0)
-				player.addVelocity(8);
+				player.addVelocity(1);
 			else {
-				player.addVelocity(4);
+				player.addVelocity(1);
 			}
+			if(player.getVelocity() > 5){
+				player.setVelocity(5);
+			}
+			
 		} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			play = true;
+			
 			if (player.getVelocity() == 0)
-				player.addVelocity(-8);
+				player.addVelocity(-1);
 			else {
-				player.addVelocity(-4);
+				player.addVelocity(-1);
 			}
+			if(player.getVelocity() < -5){
+				player.setVelocity(-5);
+			}
+			
 		}
-
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			play = false;
 			ball.setX(350);
